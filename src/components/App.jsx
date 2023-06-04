@@ -25,7 +25,7 @@ export const App = () => {
       <ContactsForm />
       <h2>Contacts</h2>
       <Filter />
-      {isLoading && <h1>Loading Contacts......</h1>}
+      {isLoading && !error && <h1>Loading Contacts......</h1>}
       {error && <h1>{error}</h1>}
       {contacts.length > 0 && <ContactsList />}
 

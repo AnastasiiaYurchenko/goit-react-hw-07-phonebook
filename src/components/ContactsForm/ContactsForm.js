@@ -10,7 +10,8 @@ import { FormWrapper } from './ContactsForm.styled';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 
 const ContactsSchema = Yup.object().shape({
   name: Yup.string()

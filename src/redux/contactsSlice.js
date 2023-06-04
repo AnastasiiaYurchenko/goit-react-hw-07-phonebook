@@ -1,5 +1,5 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
-import { fetchContactas } from './operations';
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContactas, addContact } from './operations';
 // import { persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
@@ -30,28 +30,46 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [addContact.pending](state) {
+      state.isLoading = true;
+    },
+    [addContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const totalNames = state.items.map(contact => contact.name);
+
+      if (totalNames.includes(action.payload.name)) {
+        window.alert(`${action.payload.name} is allready in contacts`);
+        return state;
+      }
+      state.items.push(action.payload);
+    },
+    [addContact.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
   reducers: {
-    addContact: {
-      reducer(state, action) {
-        const totalNames = state.items.map(contact => contact.name);
+    // addContact: {
+    //   reducer(state, action) {
+    //     const totalNames = state.items.map(contact => contact.name);
 
-        if (totalNames.includes(action.payload.name)) {
-          window.alert(`${action.payload.name} is allready in contacts`);
-          return state;
-        }
-        state.items.push(action.payload);
-      },
-      prepare(newContact) {
-        return {
-          payload: {
-            id: nanoid(),
-            name: newContact.name,
-            number: newContact.number,
-          },
-        };
-      },
-    },
+    //     if (totalNames.includes(action.payload.name)) {
+    //       window.alert(`${action.payload.name} is allready in contacts`);
+    //       return state;
+    //     }
+    //     state.items.push(action.payload);
+    //   },
+    //   prepare(newContact) {
+    //     return {
+    //       payload: {
+    //         id: nanoid(),
+    //         name: newContact.name,
+    //         number: newContact.number,
+    //       },
+    //     };
+    //   },
+    // },
     deleteContact(state, action) {
       const index = state.items.findIndex(
         contact => contact.id === action.payload
@@ -71,5 +89,5 @@ export const contactsSlice = createSlice({
 //   contactsSlice.reducer
 // );
 
-export const { addContact, deleteContact } = contactsSlice.actions;
+export const { deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
