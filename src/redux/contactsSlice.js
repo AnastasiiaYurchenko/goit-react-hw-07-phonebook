@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContactas, addContact } from './operations';
+import { fetchContactas, addContact, deleteContact } from './operations';
 // import { persistReducer } from 'redux-persist';
 // import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
@@ -48,12 +48,26 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    [deleteContact.pending](state) {
+      state.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      const index = state.items.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.items.splice(index, 1);
+    },
+    [deleteContact.rejected](state, action) {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
   reducers: {
     // addContact: {
     //   reducer(state, action) {
     //     const totalNames = state.items.map(contact => contact.name);
-
     //     if (totalNames.includes(action.payload.name)) {
     //       window.alert(`${action.payload.name} is allready in contacts`);
     //       return state;
@@ -70,12 +84,12 @@ export const contactsSlice = createSlice({
     //     };
     //   },
     // },
-    deleteContact(state, action) {
-      const index = state.items.findIndex(
-        contact => contact.id === action.payload
-      );
-      state.items.splice(index, 1);
-    },
+    // deleteContact(state, action) {
+    //   const index = state.items.findIndex(
+    //     contact => contact.id === action.payload
+    //   );
+    //   state.items.splice(index, 1);
+    // },
   },
 });
 
@@ -89,5 +103,4 @@ export const contactsSlice = createSlice({
 //   contactsSlice.reducer
 // );
 
-export const { deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
