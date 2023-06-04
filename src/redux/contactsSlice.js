@@ -64,33 +64,33 @@ export const contactsSlice = createSlice({
       state.error = action.payload;
     },
   },
-  reducers: {
-    // addContact: {
-    //   reducer(state, action) {
-    //     const totalNames = state.items.map(contact => contact.name);
-    //     if (totalNames.includes(action.payload.name)) {
-    //       window.alert(`${action.payload.name} is allready in contacts`);
-    //       return state;
-    //     }
-    //     state.items.push(action.payload);
-    //   },
-    //   prepare(newContact) {
-    //     return {
-    //       payload: {
-    //         id: nanoid(),
-    //         name: newContact.name,
-    //         number: newContact.number,
-    //       },
-    //     };
-    //   },
-    // },
-    // deleteContact(state, action) {
-    //   const index = state.items.findIndex(
-    //     contact => contact.id === action.payload
-    //   );
-    //   state.items.splice(index, 1);
-    // },
-  },
+  // reducers: {
+  // addContact: {
+  //   reducer(state, action) {
+  //     const totalNames = state.items.map(contact => contact.name);
+  //     if (totalNames.includes(action.payload.name)) {
+  //       window.alert(`${action.payload.name} is allready in contacts`);
+  //       return state;
+  //     }
+  //     state.items.push(action.payload);
+  //   },
+  //   prepare(newContact) {
+  //     return {
+  //       payload: {
+  //         id: nanoid(),
+  //         name: newContact.name,
+  //         number: newContact.number,
+  //       },
+  //     };
+  //   },
+  // },
+  // deleteContact(state, action) {
+  //   const index = state.items.findIndex(
+  //     contact => contact.id === action.payload
+  //   );
+  //   state.items.splice(index, 1);
+  // },
+  // },
 });
 
 // const persistConfig = {
