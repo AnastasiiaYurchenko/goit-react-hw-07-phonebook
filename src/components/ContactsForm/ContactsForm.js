@@ -10,7 +10,6 @@ import { FormWrapper } from './ContactsForm.styled';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
 import { useDispatch } from 'react-redux';
-// import { addContact } from 'redux/contactsSlice';
 import { addContact } from 'redux/operations';
 
 const ContactsSchema = Yup.object().shape({
@@ -18,7 +17,7 @@ const ContactsSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required field'),
-  number: Yup.string().phone('UA').required('Required field'),
+  phone: Yup.string().phone('UA').required('Required field'),
 });
 
 export const ContactsForm = () => {
@@ -29,7 +28,7 @@ export const ContactsForm = () => {
       <Formik
         initialValues={{
           name: '',
-          number: '',
+          phone: '',
         }}
         validationSchema={ContactsSchema}
         onSubmit={(values, actions) => {
@@ -46,8 +45,8 @@ export const ContactsForm = () => {
 
           <FormField>
             Number
-            <Field type="tel" name="number" />
-            <ErrorMessage name="number" component="div" />
+            <Field type="tel" name="phone" />
+            <ErrorMessage name="phone" component="div" />
           </FormField>
 
           <Button type="submit">Add contact</Button>

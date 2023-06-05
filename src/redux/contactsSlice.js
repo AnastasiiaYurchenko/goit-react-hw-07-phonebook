@@ -39,13 +39,7 @@ export const contactsSlice = createSlice({
       state.error = null;
       state.items = action.payload;
     },
-    // [fetchContactas.rejected](state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-    // [addContact.pending](state) {
-    //   state.isLoading = true;
-    // },
+
     [addContact.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
@@ -57,13 +51,7 @@ export const contactsSlice = createSlice({
       }
       state.items.push(action.payload);
     },
-    // [addContact.rejected](state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
-    // [deleteContact.pending](state) {
-    //   state.isLoading = true;
-    // },
+
     [deleteContact.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
@@ -72,10 +60,6 @@ export const contactsSlice = createSlice({
       );
       state.items.splice(index, 1);
     },
-    // [deleteContact.rejected](state, action) {
-    //   state.isLoading = false;
-    //   state.error = action.payload;
-    // },
   },
   // reducers: {
   // addContact: {
@@ -105,15 +89,5 @@ export const contactsSlice = createSlice({
   // },
   // },
 });
-
-// const persistConfig = {
-//   key: 'root',
-//   storage,
-// };
-
-// export const persistedContactsReducer = persistReducer(
-//   persistConfig,
-//   contactsSlice.reducer
-// );
 
 export const contactsReducer = contactsSlice.reducer;

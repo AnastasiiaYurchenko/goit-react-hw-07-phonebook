@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 
 import { FieldFind, LabelFind } from './Filter.styled';
 import { setFilter } from 'redux/filterSlice';
-import { getFilter } from 'redux/selectors';
+import { selectFilter } from 'redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filterValue = useSelector(getFilter);
+  const filterValue = useSelector(selectFilter);
 
   const handleFilterChange = e => dispatch(setFilter(e.currentTarget.value));
 
