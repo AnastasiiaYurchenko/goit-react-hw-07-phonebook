@@ -9,8 +9,9 @@ import {
 import { FormWrapper } from './ContactsForm.styled';
 import * as Yup from 'yup';
 import 'yup-phone-lite';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/selectors';
 
 const ContactsSchema = Yup.object().shape({
   name: Yup.string()
@@ -22,6 +23,8 @@ const ContactsSchema = Yup.object().shape({
 
 export const ContactsForm = () => {
   const dispatch = useDispatch();
+  const items = useSelector(selectContacts);
+  const totalNames = items.map(contact => contact.name);
 
   return (
     <FormWrapper>
@@ -32,7 +35,16 @@ export const ContactsForm = () => {
         }}
         validationSchema={ContactsSchema}
         onSubmit={(values, actions) => {
+          // values это объект {name: "ghghg", phone:"56656"}
+
+          if (totalNames.includes(values.name)) {
+            window.alert(`${values.name} is allready in contacts`);
+            // console.log(`${values.name} is allready in contacts`);
+            return;
+          }
           dispatch(addContact(values));
+          // или это можно расписать(если не менять в инпуте телефона name="number" на name="phone")
+          // dispatch(addContact({ name: values.name, phone: values.number }));
           actions.resetForm();
         }}
       >
